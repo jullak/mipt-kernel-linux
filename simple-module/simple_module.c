@@ -108,8 +108,6 @@ void delete_all(void) {
   	}
 }
 
-//отдать юзера полностью?
-//функции для устройства - разнести их с самой структурой
 /*-------------------------------------------------------------*/
 
 #define CLASS_NAME "phonebook_class"
@@ -119,6 +117,8 @@ void delete_all(void) {
 #define GET_CMD "get "
 #define DEL_CMD "del "
 
+#define RET_SIZE 512
+
 static const int CMD_LEN = 4;
 
 static dev_t dev_type;
@@ -126,7 +126,7 @@ static struct cdev ph_cdev;
 static struct class * phonebook_class;
 static struct device * phonebook_device;
 
-char returned[CHAR_BUF_LEN];
+char returned[RET_SIZE];
 
 
 static int ph_open(struct inode * inode, struct file * file) {
@@ -154,6 +154,7 @@ static ssize_t ph_read(struct file * file, char __user * user_buffer, size_t siz
 static ssize_t ph_write(struct file * file, const char __user * user_buffer, size_t size, loff_t * offset) {
   char buffer[CMD_LEN + sizeof(user_data_t)];
   memset(buffer, 0, CMD_LEN + sizeof(user_data_t));
+  memset(returned, 0, RET_SIZE);
 
   if (size > CMD_LEN + sizeof(user_data_t)) {
   	printk(KERN_INFO "Too large request \n");
