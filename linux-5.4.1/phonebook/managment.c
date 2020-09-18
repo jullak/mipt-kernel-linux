@@ -5,7 +5,7 @@
 #include <linux/syscalls.h>
 #include <linux/uaccess.h>
 
-#define CHAR_BUF_LEN 64
+#define CHAR_BUF_LEN 32
 #define REQUEST_SIZE 512
 
 #define DEV_NAME "/dev/phonebook_dev"

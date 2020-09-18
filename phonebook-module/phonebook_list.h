@@ -1,6 +1,6 @@
 #include <linux/list.h>
 
-#define CHAR_BUF_LEN 64
+#define CHAR_BUF_LEN 32
 
 typedef struct {
   uint32_t age;
@@ -16,7 +16,7 @@ typedef struct {
   user_data_t user;
 } phonebook_t;
 
-struct list_head phonebook_head;
+static struct list_head phonebook_head;
 
 
 int find_user_data_by_surname(const char * surname, phonebook_t ** returned);
