@@ -35,7 +35,6 @@ static struct device * phonebook_device;
 
 char returned[RET_SIZE];
 
-
 static int ph_open(struct inode * inode, struct file * file) {
   printk(KERN_INFO "Dev opening \n");
 
@@ -156,7 +155,6 @@ static int __init phonebook_module_init(void) {
     unregister_chrdev_region(dev_type, 1);
     return -1;
   }
-  INIT_LIST_HEAD(&phonebook_head);
 
   return 0;
 }

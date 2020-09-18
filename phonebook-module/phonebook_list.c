@@ -5,6 +5,8 @@
 
 #include "phonebook_list.h"
 
+struct list_head phonebook_head = LIST_HEAD_INIT(phonebook_head);
+
 int find_user_data_by_surname(const char * surname, phonebook_t ** returned) {
   printk(KERN_INFO "Start searching user with surname %s \n", surname);
 

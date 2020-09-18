@@ -16,9 +16,6 @@ typedef struct {
   user_data_t user;
 } phonebook_t;
 
-static struct list_head phonebook_head;
-
-
 int find_user_data_by_surname(const char * surname, phonebook_t ** returned);
 int add_user_data(user_data_t * entry);
 int del_user_data(phonebook_t * deleted);

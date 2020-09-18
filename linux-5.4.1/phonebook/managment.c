@@ -43,7 +43,7 @@ asmlinkage long sys_add_user(struct user_data * input_data) {
 
   printk(KERN_INFO "Start request add");
   char request[REQUEST_SIZE];
-  //memset(request, 0, REQUEST_SIZE);
+  memset(request, 0, REQUEST_SIZE);
   //name, surname, email, phone, age
   sprintf(request, "add %s %s %s %s %u", 
         new_user.name, new_user.surname, new_user.email, new_user.phone, new_user.age);
@@ -72,7 +72,7 @@ asmlinkage long sys_get_user(const char * surname, unsigned int len, struct user
   }
 
   char surname_kernel[CHAR_BUF_LEN];
-  //memset(surname_kernel, 0, CHAR_BUF_LEN);
+  memset(surname_kernel, 0, CHAR_BUF_LEN);
   if (copy_from_user(surname_kernel, surname, len)) {
     ksys_close(fd);
     set_fs(prev_fs);
@@ -80,7 +80,7 @@ asmlinkage long sys_get_user(const char * surname, unsigned int len, struct user
   }
 
   char request[REQUEST_SIZE];
-  //memset(request, 0, REQUEST_SIZE);
+  memset(request, 0, REQUEST_SIZE);
   sprintf(request, "get %s", surname_kernel);
 
   int written = ksys_write(fd, request, strlen(request));
@@ -90,7 +90,7 @@ asmlinkage long sys_get_user(const char * surname, unsigned int len, struct user
     return -1;
   }
 
-  //memset(request, 0, REQUEST_SIZE);
+  memset(request, 0, REQUEST_SIZE);
   if (0 > ksys_read(fd, request, REQUEST_SIZE)) {
     ksys_close(fd);
     set_fs(prev_fs);
@@ -99,7 +99,7 @@ asmlinkage long sys_get_user(const char * surname, unsigned int len, struct user
   ksys_close(fd);
 
   struct user_data getting_user;
-  //memset(&getting_user, 0, sizeof(struct user_data));
+  memset(&getting_user, 0, sizeof(struct user_data));
   //name, surname, email, phone, age
   sscanf(request, "%s %s %s %s %u", 
         getting_user.name, getting_user.surname, getting_user.email, getting_user.phone, &getting_user.age);
@@ -128,7 +128,7 @@ asmlinkage long sys_del_user(const char * surname, unsigned int len) {
   }
 
   char surname_kernel[CHAR_BUF_LEN];
-  //memset(surname_kernel, 0, CHAR_BUF_LEN);
+  memset(surname_kernel, 0, CHAR_BUF_LEN);
   if (copy_from_user(surname_kernel, surname, len)) {
     ksys_close(fd);
     set_fs(prev_fs);
@@ -136,7 +136,7 @@ asmlinkage long sys_del_user(const char * surname, unsigned int len) {
   }
 
   char request[REQUEST_SIZE];
-  //memset(request, 0, REQUEST_SIZE);
+  memset(request, 0, REQUEST_SIZE);
   sprintf(request, "del %s", surname_kernel);
 
   int written = ksys_write(fd, request, strlen(request));
