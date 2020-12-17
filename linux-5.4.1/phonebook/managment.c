@@ -19,7 +19,7 @@ struct user_data {
 };
 
 
-asmlinkage long sys_add_user(struct user_data * input_data) {
+SYSCALL_DEFINE1(add_user, struct user_data *, input_data) {
   mm_segment_t prev_fs = get_fs();
   set_fs(KERNEL_DS);
   
@@ -61,7 +61,7 @@ asmlinkage long sys_add_user(struct user_data * input_data) {
   return written;
 }
 
-asmlinkage long sys_get_user(const char * surname, unsigned int len, struct user_data * output_data) {
+SYSCALL_DEFINE3(get_user, const char *, surname, unsigned int, len, struct user_data *, output_data) {
   mm_segment_t prev_fs = get_fs();
   set_fs(KERNEL_DS);
   
@@ -117,7 +117,7 @@ asmlinkage long sys_get_user(const char * surname, unsigned int len, struct user
   return 1;
 }
 
-asmlinkage long sys_del_user(const char * surname, unsigned int len) {
+SYSCALL_DEFINE2(del_user, const char *, surname, unsigned int, len) {
   mm_segment_t prev_fs = get_fs();
   set_fs(KERNEL_DS);
   

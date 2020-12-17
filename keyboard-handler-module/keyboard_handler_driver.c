@@ -1,3 +1,11 @@
+
+
+
+
+
+
+
+
 #include <linux/delay.h>
 #include <linux/init.h>
 #include <linux/interrupt.h>
@@ -47,7 +55,7 @@ static int __init keyboard_module_init(void) {
 
   int res = request_irq(KEYBOARD_IRQ, keyboard_counter_handler_top, IRQF_SHARED, "keyboard_module", &counter_task);
   if (res < 0) {
-    printk(KERN_ERR "Keyboard module: cannot register interrupt handler \n");
+    printk(KERN_ERR "Cannot register interrupt handler \n");
     return res;
   }
 

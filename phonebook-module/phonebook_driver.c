@@ -48,6 +48,7 @@ static int ph_close(struct inode * inode, struct file * file) {
 }
 
 static ssize_t ph_read(struct file * file, char __user * user_buffer, size_t size, loff_t * offset) {
+  printk(KERN_INFO "Start read from device \n");
   if (*offset > 0) return 0;
   
   if (0 == copy_to_user(user_buffer, returned, strlen(returned))) {
@@ -88,6 +89,7 @@ static ssize_t ph_write(struct file * file, const char __user * user_buffer, siz
   } else if (strncmp(GET_CMD, buffer, CMD_LEN) == 0) {
     phonebook_t * entry;
     if (0 > find_user_data_by_surname(buffer + CMD_LEN, &entry)) {
+      printk(KERN_INFO "User not found");
       strcpy(returned, "not found\0");
       return -1;
     }
@@ -98,6 +100,7 @@ static ssize_t ph_write(struct file * file, const char __user * user_buffer, siz
   } else if (strncmp(DEL_CMD, buffer, CMD_LEN) == 0) {
     phonebook_t * entry;
     if (0 > find_user_data_by_surname(buffer + CMD_LEN, &entry)) {
+      printk(KERN_INFO "User not found");
       strcpy(returned, "not found\0");
       return -1;
     }
